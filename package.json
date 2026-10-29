@@ -1,14 +1,15 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "obsidian-bible-reader",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "Offline SWORD Bible reader for Obsidian",
 	"main": "main.js",
 	"type": "module",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"test": "node scripts/test.mjs"
 	},
 	"keywords": [],
 	"license": "0-BSD",
@@ -19,9 +20,13 @@
 		"eslint": "^9.39.4",
 		"eslint-plugin-obsidianmd": "^0.4.0",
 		"globals": "^17.6.0",
+		"happy-dom": "^21.0.4",
 		"jiti": "^2.6.1",
 		"obsidian": "latest",
 		"typescript": "^5.8.3",
 		"typescript-eslint": "^8.59.1"
+	},
+	"dependencies": {
+		"fflate": "^0.8.3"
 	}
 }

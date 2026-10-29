@@ -1,0 +1,11 @@
+schema: spec-driven
+
+context: |
+  Product: an offline-first Bible reader inside Obsidian.
+  Reading identity is translation + book + chapter, with one shared current position per vault.
+  Position must survive restart and vault synchronization via ordinary Git commits.
+  The plugin does not own Git commit, pull, push, or automatic conflict resolution.
+  Bible translations are explicitly downloaded or imported into the vault and remain readable offline.
+  Preserve translation provenance, licensing, book identity, and versification metadata.
+  Support desktop and mobile through browser-compatible code and Obsidian vault APIs.
+  No telemetry, cloud requirement, implicit downloads, or remote executable code.

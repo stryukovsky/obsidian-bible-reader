@@ -1,0 +1,14 @@
+export { BOOKS, BOOK_REGISTRY, VERSIFICATIONS, getCanon, verseIndex } from '../src/sword/canon';
+export { parseConfig, safePath } from '../src/sword/config';
+export { SwordModule } from '../src/sword/module';
+export { openArchive, MAX_ARCHIVE, MAX_EXPANDED } from '../src/sword/archive';
+export { TranslationLibrary } from '../src/library/library';
+export { STATE_PATH, LIBRARY } from '../src/library/storage';
+export { PositionStore, parsePosition, serializePosition } from '../src/state/position';
+export { adjacent, hasPosition } from '../src/reader/navigation';
+export { ReaderController } from '../src/reader/controller';
+export { verseText } from '../src/reader/text';
+export { chapterPath, positionFromPath, convertToMarkdown, writeMarkdown, firstChapter, markdownText } from '../src/reader/markdown';
+export { HISTORY_LIMIT, parseReadingHistory, serializeReadingHistory, visitHistory } from '../src/state/history';
+export { CURRENT_READING_BOOKMARK, coreBookmarks, updateCurrentBookmark, CurrentReadingBookmark } from '../src/bookmarks/current-reading';
+export { positionFromMarkdown, resolveChapter } from '../src/reader/paths';
