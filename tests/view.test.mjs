@@ -70,9 +70,10 @@ test('plugin ribbon uses normal Markdown openFile and cleans up workspace/vault 
    on:(name,callback)=>{const event={name,callback};vaultEvents.add(event);return event;},offref:event=>vaultEvents.delete(event)},
   workspace:{getActiveViewOfType:()=>null,onLayoutReady:callback=>callback(),on:(name,callback)=>{const event={name,callback};events.add(event);return event;},offref:event=>events.delete(event),getLeaf:()=>({openFile:async openedFile=>{opened.push(openedFile.path);for(const event of events)event.callback(openedFile);}})},
  };
+ Object.defineProperty(app,'internalPlugins',{get(){throw new Error('Core plugin integration must not be accessed');}});
  const plugin=new BibleReaderPlugin(app);plugin.onload();
- assert.deepEqual(plugin.commands.map(command=>command.id),['open-bible-reader','install-bible-translation','recover-reading-position','sync-current-reading-bookmark','previous-reading-position','next-reading-position']);
- assert.equal(plugin.views.size,0);assert.equal(vaultEvents.size,5);assert.equal(events.size,3);
+ assert.deepEqual(plugin.commands.map(command=>command.id),['open-bible-reader','install-bible-translation','recover-reading-position','previous-reading-position','next-reading-position']);
+ assert.equal(plugin.views.size,0);assert.equal(vaultEvents.size,4);assert.equal(events.size,3);
  plugin.ribbon();await settle();assert.deepEqual(opened,['Bible/KJV/John/3.md']);
  plugin.unload();assert.equal(events.size,0);assert.equal(vaultEvents.size,0);
  await window.happyDOM.abort();
@@ -99,18 +100,6 @@ test('history ribbon buttons reflect bounds and move without appending new entri
  back.action();await settle();assert.equal(reader.state.historyIndex,0);assert.equal(back.element.getAttribute('aria-disabled'),'true');assert.equal(forward.element.getAttribute('aria-disabled'),'false');
  forward.action();await settle();assert.equal(reader.state.historyIndex,1);assert.equal(reader.state.history.length,2);
  plugin.unload();await reader.state.travel(-1);assert.equal(back.element.getAttribute('aria-disabled'),'false');reader.stop();await window.happyDOM.abort();
-});
-
-test('current reading bookmark subscribes to saved chapters and stops updating on unload',async()=>{
- const window=setupDom();const {mockPlugin,mockFile,registerCurrentReadingBookmark}=await import(process.env.BIBLE_VIEW_BUNDLE);
- const disk=new MemoryStorage();disk.files.set(chapterPath(gen),'chapter');disk.files.set(chapterPath(john),'chapter');const reader=new ReaderController(disk,async()=>{});let saves=0;
- const core={items:[],onItemsChanged:()=>{saves++;}};
- const app={internalPlugins:{getPluginById:()=>({enabled:true,instance:core})},vault:{getAbstractFileByPath:path=>mockFile(path),on:()=>({}),offref:()=>{}},workspace:{onLayoutReady:callback=>callback(),offref:()=>{}}};
- const plugin=mockPlugin(app);const bookmark=registerCurrentReadingBookmark(plugin,reader);await reader.state.load();await reader.state.save(gen);await bookmark.sync();
- assert.equal(core.items.length,1);assert.equal(core.items[0].path,chapterPath(gen));const initialSaves=saves;
- await reader.saveScroll(chapterPath(gen),50,reader.state.position);await bookmark.sync();assert.equal(saves,initialSaves);
- await reader.state.save(john);await bookmark.sync();assert.equal(core.items.length,1);assert.equal(core.items[0].path,chapterPath(john));assert.equal('scrollPercent' in core.items[0],false);
- plugin.unload();await reader.state.save(gen);assert.equal(await bookmark.sync(),'stopped');assert.equal(core.items[0].path,chapterPath(john));reader.stop();await window.happyDOM.abort();
 });
 
 test('titled Russian chapter notes save their actual path and resume without a numeric-only file',async()=>{

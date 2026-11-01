@@ -11,7 +11,7 @@ Reading the Bible inside Obsidian should work offline and resume at the same tra
 - Persist up to 1,000 reading positions and a history cursor in vault-local state, with back/forward ribbon controls and scroll restoration. Next-chapter progression updates the current entry without appending. Restore history through Git sync.
 - Allow explicit downloads of licensed SWORD Bible modules directly into the vault, with local import as an alternative.
 - Retain source modules for optional reconversion and export Markdown on installation: unlocked zText/ZIP and RawText Bible modules using standard SWORD versifications, including Synodal; reject unsupported drivers, compression, and versifications clearly.
-- Maintain one chapter-only Current Bible reading bookmark in the enabled core Bookmarks plugin, following the current saved history entry without storing scroll data.
+- Keep reading and synchronization file-based: Markdown chapters plus vault-local JSON history, without core Bookmarks integration.
 - Document Git inclusion rules and conflict recovery. Git commits, pulls, and pushes remain the responsibility of the user's existing workflow.
 
 ## Capabilities

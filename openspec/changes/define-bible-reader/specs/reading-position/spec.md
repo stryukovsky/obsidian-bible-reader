@@ -106,30 +106,15 @@ Jumping elsewhere after navigating backward SHALL discard the forward branch and
 - **WHEN** the user goes back and jumps to another passage
 - **THEN** forward entries are discarded and the new jump becomes the final active history entry
 
-### Requirement: Bookmark the current chapter
-When the core Bookmarks plugin is enabled and compatible, the plugin SHALL maintain a file bookmark named Current Bible reading pointing to the active saved history entry's existing chapter. It SHALL contain no heading, block, editor, or scroll state. Pending, invalid, or missing-target reading state SHALL NOT replace the bookmark target.
+### Requirement: Keep reading state in files
+The plugin SHALL use Markdown chapters and vault-local JSON history for reading and synchronization. It SHALL NOT integrate with core Bookmarks or register a bookmark update command.
 
-#### Scenario: Update after navigation
-- **WHEN** the current saved history entry changes through a jump, next chapter, back/forward, or Git synchronization
-- **THEN** the managed bookmark points to the corresponding Markdown chapter without a scroll location
-
-#### Scenario: Scroll within the chapter
-- **WHEN** only the saved scroll percentage changes
-- **THEN** the chapter bookmark remains unchanged and no core bookmark save is requested
-
-### Requirement: Preserve other bookmarks and integration availability
-Bookmark updates SHALL preserve unrelated bookmarks and groups. The managed bookmark SHALL update in place even when moved into a group. Disabled or incompatible core Bookmarks SHALL NOT affect Bible reading; an explicit update command SHALL report how to enable or retry integration.
-
-#### Scenario: Managed bookmark is grouped
-- **WHEN** the named bookmark is inside a group and the saved reading chapter changes
-- **THEN** only its chapter target changes, retaining its group position and creation time
-
-#### Scenario: Bookmarks disabled
-- **WHEN** the user requests bookmark update while core Bookmarks is disabled
-- **THEN** the plugin explains the enable/retry action without enabling the core plugin or changing existing bookmarks
+#### Scenario: Load without core integration
+- **WHEN** the plugin loads and resumes a chapter
+- **THEN** it uses the chapter file and state.json without accessing or modifying core Bookmarks
 
 ### Requirement: Track titled chapter files
-Reading-state updates SHALL recognize chapter notes with descriptive filenames under their Bible translation/book folder, using Bible reference frontmatter when present. The saved reference SHALL retain the actual vault-relative note path so history, scroll restoration, and bookmark sync resolve the existing file.
+Reading-state updates SHALL recognize chapter notes with descriptive filenames under their Bible translation/book folder, using Bible reference frontmatter when present. The saved reference SHALL retain the actual vault-relative note path so history and scroll restoration resolve the existing file.
 
 #### Scenario: Open a Russian chapter with a title
 - **WHEN** the user opens Bible/RusDesnitsky/Matthew/18. Смирение, забота о малых и прощение.md with reference properties for Matthew 18
@@ -140,4 +125,4 @@ A saved reference without an existing numeric chapter file SHALL resolve a uniqu
 
 #### Scenario: Resume a legacy reference
 - **WHEN** saved state references Matthew 13 but only 13. Притчи о Царстве Небес.md exists for that chapter
-- **THEN** resume and bookmark synchronization target the existing titled note instead of a nonexistent 13.md
+- **THEN** resume targets the existing titled note instead of a nonexistent 13.md

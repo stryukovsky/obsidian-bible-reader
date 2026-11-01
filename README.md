@@ -39,19 +39,9 @@ Jumping to another passage or translation adds an entry. Advancing to the next c
 
 History and its cursor sync through the same state.json file. Version-1 single-position data loads as a one-entry history, preserving its scroll; the next save writes version-2 history. Keep devices on the updated plugin version after migration.
 
-### Current reading bookmark
+### If state sync appears stuck
 
-Enable **Bookmarks** in **Settings → Core plugins**. Bible Reader maintains one native file bookmark named **Current Bible reading** pointing to the active saved history entry's chapter. It follows normal navigation, next-chapter progression, back/forward, and newly synced reading state. It contains no heading, verse, cursor, or scroll location. Scroll-only saves do not rewrite bookmarks.
-
-You can move this bookmark into a bookmark group; it stays there as its chapter target updates. Other bookmarks and groups are preserved. Keep its managed title if you want it to follow your position; renaming it preserves it as an ordinary bookmark and allows a new **Current Bible reading** item to be created.
-
-To retry after enabling Bookmarks, run **Bible Reader: Update current reading bookmark**. A missing chapter, invalid history, disabled Bookmarks, or incompatible core API leaves existing bookmarks alone. The plugin does not enable core plugins for you.
-
-The Bookmarks plugin saves this item through its own settings and persistence. You do not need to sync its configuration to reconstruct the bookmark on another device: Bible Reader recreates it from the synced reading history when Bookmarks is enabled. The integration uses a guarded internal API because Obsidian provides no public bookmark mutation API; compatibility is checked before changing anything. It does not directly rewrite bookmarks.json.
-
-### If state or bookmark sync appears stuck
-
-Reading history is stored in **`Bible reader/state.json`**. **Current Bible reading** appears in Obsidian's **Bookmarks sidebar**, not as a Markdown note in your vault. The core Bookmarks plugin persists it through its own configuration.
+Reading history and scroll positions are stored in **`Bible reader/state.json`**. Bible chapters are ordinary Markdown files; select the Bible ribbon button to resume the saved chapter.
 
 After updating the plugin bundle, reload the plugin or Obsidian and open another Bible chapter. Titled filenames are supported, including Russian names; do not remove the chapter's Bible reference properties. Older saved numeric references are resolved to matching titled files without resetting history. If several notes claim the same chapter, open the intended one to record its exact path.
 

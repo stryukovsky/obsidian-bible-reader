@@ -54,15 +54,11 @@ Add chevron-left and chevron-right icons beside the Bible ribbon icon, plus stab
 
 Separate canonical export paths from stored actual note paths. Validate explicit paths remain inside the reference's Bible translation/book folder. On file-open, identify the reference from frontmatter or a numeric filename prefix and persist its actual path. Scroll tracking uses that path rather than requiring a numeric filename.
 
-If an older history entry points to a missing numeric note, scan only that chapter's book folder for a unique matching reference; preserve scroll and history length when repairing the path after successful resume. Reject ambiguous matches. Bookmark synchronization performs the same resolution before checking file existence, so legacy entries can create bookmarks for renamed chapters without resetting state. Protect repaired writes against incoming history changes during asynchronous resolution/open.
+If an older history entry points to a missing numeric note, scan only that chapter's book folder for a unique matching reference; preserve scroll and history length when repairing the path after successful resume. Reject ambiguous matches. Protect repaired writes against incoming history changes during asynchronous resolution/open.
 
-### Current chapter bookmark
+### File-only reading state
 
-Maintain one native file bookmark titled Current Bible reading. After a successful state save, history cursor change, initial state load, or adopted Git state, point it at the active entry's existing chapter note. Do not store a heading/block subpath, scroll percentage, or editor state. Scroll-only saves find the same clean chapter bookmark and skip core save notifications. Do not change the bookmark while history is pending, blocked, empty, or its current chapter is missing.
-
-Locate the named bookmark recursively so moving it into a bookmark group preserves its location and creation time. Preserve all unrelated items, groups, and ordering. If none exists, append a new file bookmark at the root. The fixed title identifies the managed item; renaming it makes it an ordinary user bookmark and a new named item will be created on the next sync.
-
-Bookmarks exposes no public typed mutation API. Isolate feature detection for app.internalPlugins.getPluginById('bookmarks'), enabled instance.items, and instance.onItemsChanged(true) in a small adapter. Use the core plugin's save/refresh operation rather than editing bookmarks.json behind its in-memory state. The API shape is checked against the maintained Custom Sort adapter. If unavailable, leave user bookmarks untouched and keep reading functional; an explicit update command explains how to enable Bookmarks or reports unsupported integration. Never enable the core plugin automatically. Register subscriptions for cleanup and serialize bookmark updates, retrying a failed core save on the next request.
+Reading and synchronization use chapter Markdown files and Bible reader/state.json. Do not register bookmark commands or listeners, access core Bookmarks internals, or create/update native bookmarks.
 
 ### Recovery and Git
 

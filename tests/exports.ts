@@ -10,5 +10,4 @@ export { ReaderController } from '../src/reader/controller';
 export { verseText } from '../src/reader/text';
 export { chapterPath, positionFromPath, convertToMarkdown, writeMarkdown, firstChapter, markdownText } from '../src/reader/markdown';
 export { HISTORY_LIMIT, parseReadingHistory, serializeReadingHistory, visitHistory } from '../src/state/history';
-export { CURRENT_READING_BOOKMARK, coreBookmarks, updateCurrentBookmark, CurrentReadingBookmark } from '../src/bookmarks/current-reading';
 export { positionFromMarkdown, resolveChapter } from '../src/reader/paths';

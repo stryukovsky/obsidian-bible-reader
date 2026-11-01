@@ -1,5 +1,4 @@
 import { Notice, Plugin, TFile } from 'obsidian';
-import { registerCurrentReadingBookmark } from './bookmarks/register';
 import { errorMessage } from './types';
 import { VaultStorage } from './library/vault-storage';
 import { ReaderController } from './reader/controller';
@@ -25,7 +24,6 @@ export default class BibleReaderPlugin extends Plugin {
   this.addCommand({ id: 'open-bible-reader', name: 'Open reader', callback: resume });
   this.addCommand({ id: 'install-bible-translation', name: 'Install translation', callback: () => new InstallModal(this.app, this.reader).open() });
   this.addCommand({ id: 'recover-reading-position', name: 'Recover reading position', callback: () => new PositionRecoveryModal(this.app, this.reader).open() });
-  registerCurrentReadingBookmark(this, this.reader);
   registerHistoryControls(this, this.reader);
   registerReaderEvents(this, this.reader);
  }

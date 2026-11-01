@@ -18,7 +18,7 @@
 ## 4. Documentation and checks
 
 - [x] 4.1 Update installation, storage, Git, migration, and verification documentation; run build, lint, tests, OpenSpec strict validation, and verify generated artifacts remain ignored.
-- [ ] 4.2 Verify import, standard Markdown reading, ribbon resume, and external Git state and the native current-chapter bookmark in live desktop Obsidian; record results or unavailable environment.
+- [ ] 4.2 Verify import, standard Markdown reading, ribbon resume, and external Git state in live desktop Obsidian; record results or unavailable environment.
 - [ ] 4.3 Verify conversion, offline notes, and ribbon resume in mobile Obsidian; record device/version or unavailable environment.
 
 ## 5. Scroll and translation compatibility
@@ -37,12 +37,12 @@
 - [x] 7.2 Add back/forward ribbon controls and commands with scroll restoration, branch handling, and no append for next-chapter progression; verify bounds, cross-book links, cursor races, and cleanup.
 - [x] 7.3 Update history/migration documentation and run build, lint, tests, and strict OpenSpec validation; retain pending live device checks.
 
-## 8. Current reading bookmark
+## 8. File-only reading state
 
-- [x] 8.1 Maintain one native chapter bookmark following saved state/history/sync, preserve user bookmark groups, skip scroll-only writes, and guard unavailable APIs; verify adapter, lifecycle, retry, and state integration tests.
-- [x] 8.2 Document Bookmarks enablement, managed title, chapter-only behavior, compatibility boundary, and retry command; run build, lint, regression tests, and strict OpenSpec validation.
+- [x] 8.1 Remove core Bookmarks integration, its command/listeners, and integration tests; retain file navigation, history, and scroll behavior.
+- [x] 8.2 Update documentation/specifications for file-only reading and run build, lint, regression tests, and strict OpenSpec validation.
 
 ## 9. Titled chapter sync fix
 
-- [x] 9.1 Reproduce the user's titled chapter filenames, track reference frontmatter and actual note paths, resolve older numeric references for bookmarks/resume, and preserve history/scroll safely; verify navigation, metadata, ambiguity, and bookmark regressions.
+- [x] 9.1 Reproduce the user's titled chapter filenames, track reference frontmatter and actual note paths, resolve older numeric references for resume, and preserve history/scroll safely; verify navigation, metadata, and ambiguity regressions.
 - [x] 9.2 Update documentation, run build/lint/tests/strict validation, and install the verified bundle into the existing vault plugin with a backup; require a reload before claiming live runtime verification.

@@ -5,4 +5,3 @@ export { PositionRecoveryModal } from '../src/reader/recovery-modal';
 export { mockFile, mockPlugin } from './obsidian-mock.mjs';
 export { ScrollTracker, scrollPercent, applyScrollPercent } from '../src/reader/scroll';
 export { registerHistoryControls } from '../src/reader/history-controls';
-export { registerCurrentReadingBookmark } from '../src/bookmarks/register';
